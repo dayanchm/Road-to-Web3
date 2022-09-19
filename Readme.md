@@ -4,7 +4,7 @@
 
 ## Language 
 
-- [Turkmen](/assets/Turkmen)
+- [Turkmen](/Turkmen)
 
 
 
