@@ -45,7 +45,7 @@ The applications built on top of Blockchain are called Decentralized application
 
  </a>
  
- # <h3>Solidity [Detailed](https://docs.soliditylang.org/)</h3>
+ # <h3>Solidity [detailed](https://docs.soliditylang.org/)</h3>
  
 <a name="solidity">
  
