@@ -45,9 +45,10 @@ The applications built on top of Blockchain are called Decentralized application
 
  </a>
  
- # <h3>Solidity</h3>
+ # <h3>Solidity [Detailed](https://docs.soliditylang.org/)</h3>
  
 <a name="solidity">
- Decentralized finance (DeFi) is an emerging financial technology based on secure distributed ledgers similar to those used by cryptocurrencies.
+ 
+Solidity is an object-oriented, high-level language for implementing smart contracts. Smart contracts are programs which govern the behaviour of accounts within the Ethereum state.
 
  </a>
