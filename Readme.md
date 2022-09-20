@@ -12,6 +12,7 @@
  
 - [What is Web3?](#web3)
 - [What is a Decentralized Application?](#dapp)
+- [Decentralized Finance](#defi)
 
 
 # <h3>What is Web3?</h3>
@@ -33,5 +34,12 @@ The applications built on top of Blockchain are called Decentralized application
 
 - A standard Front-end built using JavaScript or frameworks/libraries like React, Vue, Svelte, and so on.
 - A Solidity/Solana/Rust backend, built on top of the blockchain.
+
+ </a>
+ 
+# <h3>Decentralized Finance</h3>
+
+<a name="defi">
+ Decentralized finance (DeFi) is an emerging financial technology based on secure distributed ledgers similar to those used by cryptocurrencies.
 
  </a>
