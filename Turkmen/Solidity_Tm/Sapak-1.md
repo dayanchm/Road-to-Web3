@@ -108,4 +108,8 @@ Coin.Sent().watch({}, '', function(error, result) {
 ```
 Bu ýerde awtomatiki usulda düzülen `balances` funksiýasynyň ulanyjy interfeýsi tarapyndan çagyrylýandygyny ýadyňyzdan çykarmaň.
 
-Constructer funksiýasy,diňe şertnama baglaşylanda kesgitlenýän we soňrak çagyrylyp bilinmeýän aýratyn bir funksiýa. 
+Constructer funksiýasy,diňe şertnama baglaşylanda kesgitlenýän we soňrak çagyrylyp bilinmeýän aýratyn bir funksiýa. Şertnamany döreden adamyň salgysyny hemişelik saklaýar: `msg` (`tx` we `block` bilen), blokirleme girmäge mümkinçilik berýän käbir häsiýetleri öz içine alýan ýörite global üýtgeýjidir. `msg.sender` elmydama dogry (daşarky) funksiýa jaňynyň gelen salgysydyr.
+
+Netijede, şertnamanyň ahyrynda kesgitlenen we soňra ulanyjylar we beýleki şertnamalar tarapyndan çagyrylyp bilinjek funksiýalar `mint` ve `send` funksiýalarydyr. Eger `Mint` funksiýasyny şertnama döredijisinden başga biri çagyrsa, hiç hili üýtgeşiklige sebäp bolmaz. Bu, `require` diýilýän ýörite funksiýa bilen üpjün edilýär, eger argument `false` bolsa, islendik üýtgeşmäni ret edýär. Ikinji `require` çagyryşy, soňundan aşa köp ýalňyşlyklara sebäp bolup biljek teňňeleriň köp bolmazlygydyr.
+
+Başga bir tarapdan, `sent` tordaky başga birine pul ibermek üçin islendik adam (bu cryptocurrency eýýäm) tarapyndan ulanylyp bilner. Ibermek üçin ýeterlik serişdeler ýok bolsa, `sent` jaňy şowsuz bolýar we ulanyja degişli säwlik habary iberilýär.
