@@ -1,6 +1,6 @@
 # <div align="center">Web3-e barýan ýol</div> 
 
-<p align="center"> Biz bu resminamalary özümiz öwrenmek üçin taýýarladyk we sizler hem goşant goşup bilersiniz. İçinde ýazan kodlarymyz we Kod algoritmleri we ş.m bar.</p>
+<p align="center"> Biz bu resminamalary özümiz öwrenmek üçin taýýarladyk we siz hem goşant goşup bilersiniz.</p>
 
  <h3>Gysgaça mazmuny</h3>
  
