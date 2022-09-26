@@ -143,4 +143,70 @@ Ethereum Wirtual Machine ýa-da EVM (Ethereum Wirtual Machine), Ethereum-da akyl
 
 ## Hasaplar
 
+Ethereumda birmeňzeş salgy meýdanyny paýlaşýan hasaplaryň iki görnüşi bar: açyk açar jübütler (ýagny adamlar) tarapyndan dolandyrylýan daşarky hasaplar we hasap bilen saklanýan kod bilen dolandyrylýan şertnama hasaplary.
+
+Daşarky hasabyň salgysy, açar bilen kesgitlenýär, şertnamanyň salgysy bolsa şertnama baglaşylanda kesgitlenýär (döredijiniň salgysyndan we şol salgydan iberilen geleşikleriň adyndan "nonce" diýilýär).
+
+Hasabyň kod saklaýandygyna ýa-da ýokdugyna garamazdan, iki görnüşli EVM deň derejede garalýar.
+
+Her bir hasapda hemişelik 256 bitlik meýdan açar bahasy kartasy bar. Mundan başga-da, her bir hasapda Ether-de amallar netijesinde alyş-çalyş edilýän balans bar.
+
+### İşler
+
+Geleşik, bir hasapdan beýlekisine iberilen habar (şol bir ýa-da boş bolup biler, aşakda serediň). Onda ikilik maglumatlary (“ýük göteriji” diýilýär) we Ether bolup biler.
+
+Maksatly hasapda kod bar bolsa, bu kod işleýär we netijede ýük göteriji giriş hökmünde kabul edilýär.
+
+Maksatly hasap görkezilmedik bolsa (geleşigiň alyjysy ýok ýa-da alyjynyň güýji ýok bolsa), geleşik täze şertnama döretmek üçin niýetlenendir. Öň bellenip geçilişi ýaly, bu şertnamanyň salgysy nol salgy däl-de, iberijiden alnan salgy we iberilen amallaryň sany (“null”). Şeýle şertnamany döretmek üçin “EVM” kod kody hökmünde kabul edilýär we ýerine ýetirilýär. Bu programmanyň çykyş maglumatlary şertnamanyň kody hökmünde hemişelik saklanýar. Şeýlelik bilen şertnama döretmek üçin şertnamanyň hakyky koduny ibermezlik, bu kod ýerine ýetirilende ýüze çykarylan maglumatlary ibermegi aňladýar.
+
+### Gaz
+
+Her bir islenýän geleşik, geleşigi ýerine ýetirmek üçin zerur iş mukdaryny çäklendirmek we şol bir wagtyň özünde bu amal üçin zerur tölegi almak üçin belli bir mukdarda gaz alynýar. EVM amalyny ýerine ýetireniňizde, gaz belli bir düzgünlere görä kem-kemden üýtgeýär.
+
+Gaz tölegi, geleşigi esaslandyryjynyň iberijiniň hasabyndan `gaz_fee * gaz` mukdarynda tölemeli bahasydyr. Programmadan soň käbir gaz galan bolsa, galan gaz mukdaryna gabat gelýän efir şol bir usul bilen iberijiniň hasabyna gaýtarylýar.
+
+
+### Saklamak we ýatlamak
+
+Ethereum wirtual maşyn (EVM) indiki abzaslarda düşündirilişi ýaly saklamak, ýat we üýşmek ýaly üç dürli ugurda maglumatlary saklaýar.
+
+Her bir hasapda funksiýa jaňlary we amallary arasynda dowam edýän ammar diýilýän maglumat meýdany bar. Ammarda 256 bitli sözleri 256 bitli sözlere kartalaşdyrýan açar baha jübüti bar. Şertnamanyň çäginde ammarlary kesgitlemek mümkin däl. Saklamak gaty gymmat amal, çalyşmak has köp çykdajy edip biler. Şertnama özünden başga ammarlary okap ýa-da päsgel berip bilmez.
+
+Ikinji maglumat meýdany, her täze geleşik jaňy bilen şertnamanyň yzyna gaýtaryp berýän ýady ýa-da ýady diýýän zadymyzdyr. Oryat çyzykly we baýt derejesinde çözülip bilner, ýöne ýazgylar 8 bit ýa-da 256 bit bolup biler, okalýan bolsa 256 bit bilen çäklenýär. Öň degilmedik ýat meýdanyna gireniňizde (okaň ýa-da ýazyň), bu meýdany (256 bit) ýazylan ýerinden (8 bit) giňeldip bolýar. Bu giňeliş wagtynda ýüze çykyp biljek goşmaça gaz bahasy iberiji tarapyndan tölenmeli. Memoryat näçe uly bolsa, çykdajy şonça-da köpeler (artmak mukdaryň kwadraty bolar).
+
+EVM hasaba alyş maşynyna garanyňda has köp maşyn, şonuň üçin ähli hasaplamalar stack diýilýän maglumat meýdanynda ýerine ýetirilýär. Bu meýdan iň ýokary kuwwatlylygy 1024 element bolup, 256 bitli maglumatlary öz içine alýar. Stakanyň girişi ýokarky ujy bilen aşakdaky ýaly çäklendirilýär: Iň oňat 16 elementiň birini stakanyň ýokarsyna göçürip ýa-da ýokarky elementi aşakdaky 16 elementiň biri bilen çalşyp bolýar. Otherhli beýleki amallar iň ýokarky iki (ýa-da bir ýa-da birnäçe) elementi stakadan alýar we netijäni staka iterýär. Elbetde, stakanyň çuňlugyna ýetmek üçin stak elementlerini saklamaga ýa-da ýada geçirip bolýar, ýöne stakanyň ýokarsyny aýyrman has çuňňur girip bolmaýar.
+
+### Görkezme toplumy
+
+EVM-iň görkezmeler toplumy ylalaşyk meselelerine sebäp bolup biljek nädogry ýa-da gabat gelmeýän amallardan gaça durmak üçin iň az derejede saklanýar. Instructionshli görkezmeler esasy maglumat görnüşinde, 256 bit sözde ýa-da ýat böleklerinde (ýa-da beýleki baýt massiwlerinde) işleýär. Adaty arifmetiki, bitwise, logiki we deňeşdirme amallary bar. Şertli we şertsiz bökmek mümkindir. Mundan başga-da, şertnamalarda häzirki blokyň sany we wagt belgisi ýaly degişli häsiýetlere hem girip bolýar.
+
+### Habar jaňlary
+
+Şertnamalar beýleki şertnamalara jaň edip ýa-da Ether habar jaňy arkaly şertnama däl hasaplara iberip biler. Habar jaňlary, çeşmesi, barjak ýeri, ýük göterijisi, Ether, gaz we gaýdyp beriş maglumatlary bolan amallara meňzeýär. Bu logika laýyklykda görlen her bir amal, ýokary derejeli habar jaňlaryndan ybarat bolup, öz gezeginde has köp jaň döredip biler.
+
+Galan gazyň näçesini içerki habar jaňy arkaly ibermelidigini we ýük daşamak wagtynda näçeräk sarp ediljekdigini şertnama kesgitläp biler. Içerki jaňda gazdan daşary kadadan çykma (ýa-da başga bir kadadan çykma) ýüze çyksa, staka goşulan säwlik bahasy bilen habar berilýär. Bu ýagdaýda diňe jaň bilen iberilen gaz sarp edilýär. “Solidity” dilinde şeýle kadadan çykmalaryň ýüze çykmagy, stakany “köpürjikleýän” ýagdaý bilen häsiýetlendirilýär, sebäbi adaty ýagdaýda el bilen zynjyrly kadadan çykmalar döredýär.
+
+Çagyryşlar 1024 bitli meýdan bilen çäklenýär; bu has çylşyrymly amallar üçin gaýtalanýan jaňlardan aýlawlaryň has ileri tutulýandygyny aňladýar. Mundan başga-da, düwürtigiň diňe 63/64 habaryna jaň edip bolýar; bu iş ýüzünde 1000 bitden az giňişlik çäklendirilmegine getirýär.
+
+### Delegatecall / Çağrı Kodu & Kütüphaneler
+
+Esasan habar jaňy bilen birmeňzeş, delegatcall jaň şertnamasynyň çäginde maksat salgysynda kod ýerine ýetirmek we ` msg.sender we msg.value` üýtgetmezlik ýaly aýratyn habar görnüşi hasaplanýar. Bu, şertnamanyň ýerine ýetirilişinde başga bir salgydan dinamiki ýagdaýda kod ýükläp biljekdigini aňladýar. Saklamak, häzirki salgy we balans henizem çagyrylýan şertnama degişlidir, diňe çagyrylan salgydan kod bar.
+
+### Yazgylar
+
+Maglumatlary blokirleme derejesine çenli kartalaşdyrýan adaty indekslenen maglumat gurluşynda saklamak mümkindir. Hasaba alyş diýilýän bu aýratynlyk, kodda agzalan wakalary amala aşyrmak üçin Solidity tarapyndan ulanylýar. Şertnamalar döredilenden soň, hasaba alyş maglumatlary elýeterli däl, ýöne zynjyryň daşyndan täsirli bolýar. Logurnal maglumatlarynyň käbiri gül süzgüçlerinde saklanýandygy sebäpli, bu maglumatlary täsirli we kriptografiki taýdan ygtybarly gözlemek mümkindir, şonuň üçin tor elementleri (“inçe müşderiler” diýlip hem atlandyrylýar) göçürip almazdan bu ýazgylara girip biler. tutuş zynjyr.
+
+### Çagyryş döretmek
+
+Şertnamalar hatda adaty kod koduny ulanyp başga şertnamalar döredip biler (muny maksat salgysyny boş goýup edýärler). Bu jaň jaňlary bilen adaty habar jaňlarynyň arasyndaky ýeke-täk tapawut, açyk ýüküň ýerine ýetirilmegi we netije kod görnüşinde saklanmagydyr, bu ýerde jaň edýän tarap (dörediji) täze şertnamanyň salgysyny alýar.
+
+### Öçürmek we öz-özüňi ýok etmek
+
+Bir zincirden kodu kaldırmanın tek yolu, söz konusu adresteki bir sözleşmenin `selfdestruct` özelliğini aktif hale getirmesidir. Bu adreste kalan Eter belirlenmiş bir önceden belirtilen bir hedefe gönderilir ve ardından depolama ve kod durumdan çıkarılır. Sözleşmeyi teoride çıkarmak iyi bir fikir gibi görünse bile, birileri kaldırılmış sözleşmelere Ether gönderirse, Ether sonsuza dek kaybedilme tehlikesi ile karşı karşıya kalır.
+
+
+
+
+
+
 
