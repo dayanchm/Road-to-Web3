@@ -114,4 +114,33 @@ Netijede, şertnamanyň ahyrynda kesgitlenen we soňra ulanyjylar we beýleki ş
 
 Başga bir tarapdan, `sent` tordaky başga birine pul ibermek üçin islendik adam (bu cryptocurrency eýýäm) tarapyndan ulanylyp bilner. Ibermek üçin ýeterlik serişdeler ýok bolsa, `sent` jaňy şowsuz bolýar we ulanyja degişli säwlik habary iberilýär.
 
+# Blokchain esaslary
+
+“Blockchain” programmistlere düşünmek kyn düşünje däl. Sebäbi çylşyrymlylyklaryň köpüsi (meselem, blokirleme gazmak, ýuwmak, elliptik-egrilik kriptografiýasy, şahsyýet torlary we ş.m.) platformalar üçin belli bir aýratynlyklar we wadalar bilen üpjün etmek üçin bar. Bu düşünjelere we olaryň funksiýalaryna düşüneniňizden we kabul edeniňizden soň, esasy tehnologiýa barada alada etmeli dälsiňiz. Pikirlenmek üçin, Amazonyň AWS-ni ulanmak üçin içerde nähili işleýändigini bilmelimi? Elbetde ýok.
+
+## İşleýşi şekli
+
+“Blockchain” dünýä derejesinde paýlaşylýan, database'dir. Bu, islendik adamyň maglumatlar bazasyndaky işjeňligi diňe tora goşulmak arkaly görüp biljekdigini aňladýar. Maglumat bazasyndaky bir zady üýtgetmek isleseňiz, beýlekiler tarapyndan kabul edilmeli bir iş bolmaly. Hereket sözi, etmek isleýän üýtgeşmäňiziň (bir wagtyň özünde iki bahany üýtgetmek isleýändigiňizi aýdalyň) ýa asla edilmeýändigini ýa-da düýbünden ulanylmaýandygyny aňladýar. Şeýle hem, amalyňyz maglumatlar bazasyna ulanylsa-da, başga amallar ony üýtgedip bilmez.
+
+Mysal üçin, cryptocurrency-daky ähli hasaplaryň galyndylaryny görkezýän tablisa serediň. Bir hasapdan beýlekisine geçirmek soralsa, maglumatlar bazasynyň geleşik häsiýeti, pul bir hasapdan aýrylsa, elmydama beýleki hasabyňyza goşulmagyny üpjün edýär. Sebäbine garamazdan, maksat hasabyna mukdar goşmak mümkin bolmasa, çeşme hasabyndaky mukdar hem üýtgemez.
+
+Şeýle hem, geleşik elmydama iberiji (dörediji) tarapyndan şifrlenýär. Bu maglumatlar bazasyndaky käbir üýtgeşmelere elýeterliligi aňsatlaşdyrýar. “Cryptocurrency” mysalynda, ýönekeý barlag diňe hasabyň açarlary bolan biriniň hasabyndan pul geçirip biljekdigini kepillendirýär.
+
+## Blok düşünjesi
+Overcomeeňip geçmeli iň uly päsgelçilikleriň biri (Bitcoin nukdaýnazaryndan) "goşa çykdajyly hüjüm" diýilýär: Torda gapjyk boşatjak bolýan bir wagtyň özünde iki amal bar bolsa näme etmeli? Geleşikleriň diňe biri dogry bolup biler, adatça ilki kabul edilen. Mesele, "ilki" deň-duşlar ulgamynda obýektiw termin däl.
+
+Gysgaça aýtsak, hiç bir ulanyjy bu barada alada etmeli däl. Jedelleri çözmek üçin ulanyjy üçin dünýä derejesinde kabul edilen hereketleriň yzygiderliligi saýlanar. Geleşikler “bloklar” diýilýän özara baglanyşykly wakalara bölüner we soňra ähli gatnaşyjy düwünleriň arasynda paýlaşylar we deň paýlanar. Iki geleşik biri-birine gapma-garşy bolsa, ikinjisi ret ediler we blokuň bir bölegi bolmaz.
+
+Bu bloklar wagtyň geçmegi bilen çyzykly yzygiderliligi emele getirýär we "blockchain" sözüniň gelip çykan ýeri. Bloklar yzygiderli yzygiderli zynjyrlara goşulýar - Ethereum üçin bu takmynan her 17 sekuntda, täze bloklar goşulýar.
+
+"Sargyt saýlamak mehanizminiň" bir bölegi hökmünde ("magdan gazyp almak" hem diýilýär) bloklar wagtal-wagtal yzyna gaýtarylyp bilner, ýöne şeýle amal üçin diňe zynjyryň "ujundaky" adamlar hukugy bar. Berlen blokdan näçe köp blok goşulsa, yzyna öwrülmek ähtimallygy azdyr. Şonuň üçin amallaryňyz tersine bolar we hatda petikden aýrylar, ýöne näçe köp garaşsaňyz, amalyňyzyň tersine bolmagy mümkin.
+
+# The Ethereum Sanal Machine
+
+## Gysgaça
+
+Ethereum Wirtual Machine ýa-da EVM (Ethereum Wirtual Machine), Ethereum-da akylly şertnamalar üçin ulanylýan iş wagty. Bu sebit diňe bir gaçybatalga däl, eýsem bütinleý izolirlenen. EVagny, EVM-iň içinde işleýän kod, tora, haýsydyr bir faýl ulgamyna ýa-da başga daşarky amallara girip bilmeýär. Bu ýerde akylly şertnamalarda hatda beýleki akylly şertnamalara-da çäkli ygtyýarlyk bar.
+
+## Hasaplar
+
 
