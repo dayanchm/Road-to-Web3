@@ -567,4 +567,8 @@ Bu bölümde töleg kanalynyň nusgasyny nädip ösdürmelidigini öwreneris. Ş
 
 ### Gollary döretmek we barlamak
 
+Alisiň Bob-a Ether ibermek isleýändigini göz öňüne getiriň, şonuň üçin Alisa iberiji, Bob bolsa kabul ediji.
+
+Alisa kriptografiki taýdan gol çekilen habarlary zynjyrdan (mysal üçin, e-poçta arkaly) Bob-a ibermeli, bu bolsa çek ýazmak ýaly bir zat.
+
 
