@@ -571,4 +571,10 @@ Alisiň Bob-a Ether ibermek isleýändigini göz öňüne getiriň, şonuň üç
 
 Alisa kriptografiki taýdan gol çekilen habarlary zynjyrdan (mysal üçin, e-poçta arkaly) Bob-a ibermeli, bu bolsa çek ýazmak ýaly bir zat.
 
+Alisa we Bob öz gollaryny Ethereum bilen akylly şertnamadaky amallary tassyklamak üçin ulanýarlar. Bu ýerde Alisa oňa Etheri geçirmäge mümkinçilik berýän ýönekeý akylly şertnama döredýär, ýöne töleg başlamak üçin şol şertnamadan bir funksiýa çagyrmagyň ýerine, Bob muny edip biler we şeýlelik bilen amal tölegini töläp biler.
+
+Şertnama aşakdaky ýaly işleyär:
+
+1.Alisa, tölenmeli tölegleri ýapmak üçin ýeterlik Ether goşup, `ReceiverPays` şertnamasyny döredýär.
+
 
