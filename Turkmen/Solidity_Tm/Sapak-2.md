@@ -26,3 +26,6 @@ npm install -g solc
 
 ## Docker
 
+Redaktor üçin iň täze Docker Builder-i hödürleýäris. `stable` ammar ähli wersiýalaryny erkin ýerleşdirýän bolsa-da, `Nightly` ammar ösüş pudagynda bolup geçen soňky wakalary yzygiderli paýlaşmak we täzelemek sebäpli has dinamik bolýar.
+
+
