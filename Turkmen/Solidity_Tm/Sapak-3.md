@@ -575,6 +575,4 @@ Alisa we Bob öz gollaryny Ethereum bilen akylly şertnamadaky amallary tassykla
 
 Şertnama aşakdaky ýaly işleyär:
 
-1.Alisa, tölenmeli tölegleri ýapmak üçin ýeterlik Ether goşup, `ReceiverPays` şertnamasyny döredýär.
-
-
+1.Alisa, tölenmeli tölegleri ýapmak üçin ýeterlik Ether goşup, `ReceiverPays` şe
