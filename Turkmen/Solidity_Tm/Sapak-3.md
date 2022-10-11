@@ -626,5 +626,5 @@ function signPayment(recipient, amount, nonce, contractAddress, callback) {
 
 Adatça, ECDSA gollary `r` we `s` iki parametrden durýar. Ethereum-daky gollar, habara gol çekmek üçin haýsy hasabyň şahsy açarynyň ulanylandygyny we geleşigi iberijiniň kimdigini barlamak üçin ulanyp boljak `v` atly üçünji parametri öz içine alýar. Solidity, `r`, `s` we `v` parametrleri bilen habary kabul edýän we habara gol çekmek üçin ulanylýan adresi yzyna gaýtarýan içerki funksiýany çykarýar.
 
-
+#### Gol parametrlerini çykarmak
 
