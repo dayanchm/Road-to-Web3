@@ -765,3 +765,138 @@ Diňe töleg kanalyny kabul ediji ýakyn funksiýa jaň edip biler, sebäbi soň
 
 
 `Close` funksiýa gol çekilen habaryň berlen parametrlere gabat gelýändigini tassyklaýar. Hemme zady barlaýar, Ether bölegini alyja iberýär we Eteriň galan mukdaryny iberijä iberýär. Öz-özüňi gurmak funksiýasyny aşakdaky jikme-jik şertnamada görüp bilersiňiz.
+
+#### Töleg kanalynyň ýatyrylmagy
+
+Bob islendik wagt töleg kanalyny ýapyp biler, ýöne başa barmasa, Alisa şertnamanyň ahyrynda Eteri yzyna almak üçin bir ýol gerek. Şertnama geçirilende çäklendirmeler kesgitlenýär. Bu döwür gazanylandan soň, Elis serişdesini yzyna talap edip biler. `ClaimTimeout` funksiýasyny aşakdaky jikme-jik şertnamada görüp bilersiňiz.
+
+```
+pragma solidity >=0.4.24 <0.6.0;
+
+contract SimplePaymentChannel {
+    address payable public sender;      // The account sending payments.
+    address payable public recipient;   // The account receiving the payments.
+    uint256 public expiration;  // Timeout in case the recipient never closes.
+
+    constructor (address payable _recipient, uint256 duration)
+        public
+        payable
+    {
+        sender = msg.sender;
+        recipient = _recipient;
+        expiration = now + duration;
+    }
+
+    function isValidSignature(uint256 amount, bytes memory signature)
+        internal
+        view
+        returns (bool)
+    {
+        bytes32 message = prefixed(keccak256(abi.encodePacked(this, amount)));
+
+        // check that the signature is from the payment sender
+        return recoverSigner(message, signature) == sender;
+    }
+
+    /// the recipient can close the channel at any time by presenting a
+    /// signed amount from the sender. the recipient will be sent that amount,
+    /// and the remainder will go back to the sender
+    function close(uint256 amount, bytes memory signature) public {
+        require(msg.sender == recipient);
+        require(isValidSignature(amount, signature));
+
+        recipient.transfer(amount);
+        selfdestruct(sender);
+    }
+
+    /// the sender can extend the expiration at any time
+    function extend(uint256 newExpiration) public {
+        require(msg.sender == sender);
+        require(newExpiration > expiration);
+
+        expiration = newExpiration;
+    }
+
+    /// if the timeout is reached without the recipient closing the channel,
+    /// then the Ether is released back to the sender.
+    function claimTimeout() public {
+        require(now >= expiration);
+        selfdestruct(sender);
+    }
+
+    /// All functions below this are just taken from the chapter
+    /// 'creating and verifying signatures' chapter.
+
+    function splitSignature(bytes memory sig)
+        internal
+        pure
+        returns (uint8 v, bytes32 r, bytes32 s)
+    {
+        require(sig.length == 65);
+
+        assembly {
+            // first 32 bytes, after the length prefix
+            r := mload(add(sig, 32))
+            // second 32 bytes
+            s := mload(add(sig, 64))
+            // final byte (first byte of the next 32 bytes)
+            v := byte(0, mload(add(sig, 96)))
+        }
+
+        return (v, r, s);
+    }
+
+    function recoverSigner(bytes32 message, bytes memory sig)
+        internal
+        pure
+        returns (address)
+    {
+        (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
+
+        return ecrecover(message, v, r, s);
+    }
+
+    /// builds a prefixed hash to mimic the behavior of eth_sign.
+    function prefixed(bytes32 hash) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
+    }
+}
+```
+
+#### Tölegleri tassyklamak
+
+Öňki bölümden tapawutlylykda töleg kanalyndaky habarlar derrew tölenmeýär. Alyjy iň soňky habary yzarlaýar we töleg kanalyny ýapmagyň wagty gelende ýapylmagyny haýyş edýär. Bu, alyjynyň her habary öz-özüni barlamagynyň möhümdigini aňladýar. Otherwiseogsam, alyjynyň ahyrsoňy tölegini aljakdygyna kepillik ýok.
+
+Alyjy aşakdaky her habar üçin aşakdaky maglumatlary barlamaly:
+
+- Habardaky aragatnaşyk salgysy töleg kanalyna gabat gelýär.
+- Bu ýerde täze jemi garaşylýan mukdardyr.
+- Täze jemi Ether garaşylýan mukdardan ýokary däldir.
+- Gol dogry we töleg kanaly iberijiden gelýär.
+
+Bu tassyklamany ýazmak üçin `ethereumjs-util` kitaphanasyny ulanarys. Iň soňky ädim birnäçe usul bilen edilip bilner, ýöne `JavaScript` ulanarys. Aşakdaky kod ýokardaky koddan alyndy JavaScript-de `constructMessage` funksiýasyna gol çekmek:
+
+```
+// this mimics the prefixing behavior of the eth_sign JSON-RPC method.
+function prefixed(hash) {
+    return ethereumjs.ABI.soliditySHA3(
+        ["string", "bytes32"],
+        ["\x19Ethereum Signed Message:\n32", hash]
+    );
+}
+
+function recoverSigner(message, signature) {
+    var split = ethereumjs.Util.fromRpcSig(signature);
+    var publicKey = ethereumjs.Util.ecrecover(message, split.v, split.r, split.s);
+    var signer = ethereumjs.Util.pubToAddress(publicKey).toString("hex");
+    return signer;
+}
+
+function isValidSignature(contractAddress, amount, signature, expectedSigner) {
+    var message = prefixed(constructPaymentMessage(contractAddress, amount));
+    var signer = recoverSigner(message, signature);
+    return signer.toLowerCase() ==
+        ethereumjs.Util.stripHexPrefix(expectedSigner).toLowerCase();
+}
+```
+
