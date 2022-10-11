@@ -1,6 +1,6 @@
  # Solidity Kursy
 
-<img src="image/logo.svg" align="center" alt="drawing" width="200"/>
+<img src="image/logo.svg" align="center" alt="drawing" />
 
 Solidity, Akylly şertnamalary ýerine ýetirmek üçin obýekte gönükdirilen, ýokary derejeli programmirleme dilidir. Akylly şertnamalar, Ethereum ulgamyndaky amallaryň özüni alyp barşyny dolandyrýan programmalar.
 
