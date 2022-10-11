@@ -575,4 +575,11 @@ Alisa we Bob öz gollaryny Ethereum bilen akylly şertnamadaky amallary tassykla
 
 Şertnama aşakdaky ýaly işleyär:
 
-1.Alisa, tölenmeli tölegleri ýapmak üçin ýeterlik Ether goşup, `ReceiverPays` şe
+1.Alisa, tölenmeli tölegleri ýapmak üçin ýeterlik Ether goşup, `ReceiverPays` şertnamasyny döredýär.
+2.Alisa şahsy açary bilen habara gol çekip şertnamany tassyklaýar.
+3.Alisa kriptografiki taýdan gol çekilen habary Bob-a iberýär. Habary gizlin saklamagyň zerurlygy ýok (soň düşündirilýär) we ibermegiň mehanizmi ýa-da usuly möhüm däl.
+4.Bob gol çekilen habary akylly şertnama hödürleýär, tölegini talap edýär, habaryň hakykylygyny barlaýar we soň tölegini alýar.
+
+### Gol döretmek
+
+Alisa geleşige gol çekmek üçin Ethereum ulgamy bilen aragatnaşyk saklamagyň zerurlygy ýok, bu amal bütinleý oflayn bolup geçýär. Bu resminamalarda berjek mysalymyzda, [EIP-762-de](https://github.com/ethereum/EIPs/pull/712) beýan edilen usuly ulanyp, [web3.js](https://github.com/web3/web3.js) we [MetaMask](https://metamask.io/) ulanyp, brauzerde habarlara gol çekeris, sebäbi başga-da birnäçe howpsuzlyk peýdalary bar.
