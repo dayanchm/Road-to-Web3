@@ -628,3 +628,140 @@ Adatça, ECDSA gollary `r` we `s` iki parametrden durýar. Ethereum-daky gollar,
 
 #### Gol parametrlerini çykarmak
 
+Web3.js tarapyndan öndürilen gollar `r`, `s` we `v`-leriň birleşmesi, şonuň üçin ilkinji ädim bu parametrleri biri-birinden aýyrmakdyr. Muny müşderi tarapynda edip bilersiňiz, ýöne akylly şertnama tarapynda ýerine ýetirmek, üçüsiniň ýerine diňe bir gol parametrini ibermeli diýmekdir. Bir baýt massiwini komponent böleklerine bölmek çylşyrymly iş. Şeýlelik bilen, `splitSignature` funksiýasyny ýerine ýetirmek üçin (şu bapyň soňundaky şertnamadaky üçünji funksiýadaky ýaly) içerki düzmekden peýdalanýarys.
+
+#### Habar Hash'inin hasaplamak
+
+Akylly şertnama haýsy parametrlere gol çekilendigini anyk bilmeli we ulanylan parametrleriň kömegi bilen asyl habary täzeden döretmek arkaly netijäni gol barlamak üçin ulanmaly. `Prefixed` `recoverSigner ` we `dikeltmekSigner` funksiýalary muny talap töleg funksiýasynda ýerine ýetirýär.
+
+```
+pragma solidity >=0.4.24 <0.6.0;
+
+contract ReceiverPays {
+    address owner = msg.sender;
+
+    mapping(uint256 => bool) usedNonces;
+
+    constructor() public payable {}
+
+    function claimPayment(uint256 amount, uint256 nonce, bytes memory signature) public {
+        require(!usedNonces[nonce]);
+        usedNonces[nonce] = true;
+
+        // this recreates the message that was signed on the client
+        bytes32 message = prefixed(keccak256(abi.encodePacked(msg.sender, amount, nonce, this)));
+
+        require(recoverSigner(message, signature) == owner);
+
+        msg.sender.transfer(amount);
+    }
+
+    /// destroy the contract and reclaim the leftover funds.
+    function kill() public {
+        require(msg.sender == owner);
+        selfdestruct(msg.sender);
+    }
+
+    /// signature methods.
+    function splitSignature(bytes memory sig)
+        internal
+        pure
+        returns (uint8 v, bytes32 r, bytes32 s)
+    {
+        require(sig.length == 65);
+
+        assembly {
+            // first 32 bytes, after the length prefix.
+            r := mload(add(sig, 32))
+            // second 32 bytes.
+            s := mload(add(sig, 64))
+            // final byte (first byte of the next 32 bytes).
+            v := byte(0, mload(add(sig, 96)))
+        }
+
+        return (v, r, s);
+    }
+
+    function recoverSigner(bytes32 message, bytes memory sig)
+        internal
+        pure
+        returns (address)
+    {
+        (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig);
+
+        return ecrecover(message, v, r, s);
+    }
+
+    /// builds a prefixed hash to mimic the behavior of eth_sign.
+    function prefixed(bytes32 hash) internal pure returns (bytes32) {
+        return keccak256(abi.encodePacked("\x19Ethereum Signed Message:\n32", hash));
+    }
+}
+
+```
+
+### ýönekeý töleg kanalyny ýazmak
+
+Indi Alisa hem ýönekeý, ýöne doly görnüşde töleg kanaly döretmek isleýär. Töleg kanallary, gaýtalanýan Ether geçirimlerini ygtybarly, gyssagly we hiç hili töleg tölemezden kriptografiki gollary ulanýarlar.
+
+#### Töleg kanaly näme?
+
+Töleg kanallary gatnaşyjylara Ether-i geleşiksiz birnäçe gezek geçirmäge mümkinçilik berýär. Bu, geleşigiň gijikdirilmeginden we töleglerinden gaça durup bilersiňiz. Iki tarapyň (Alisa we Bob) arasynda ýönekeý bir taraplaýyn töleg kanalyny öwreneris. Bu proses üç ädimden ybarat:
+
+- Alisa Etheri akylly şertnama iberýär. Bu töleg kanalyny “açýar”.
+- Alisa, bu Etheriň alyja näçeräk bermek isleýändigini görkezýän habarlara gol çekýär. Bu ädim her töleg üçin gaýtalanýar.
+- Bob töleg kanalynda özüne gowşuryljak “Ether” -i alýar we galan bölegini iberijä iberýär we kanaly “ýapýar”.
+
+Bob tölegli kepillendirilýär, sebäbi akylly şertnama Ether-i kabul edýär we dogry gol çekilen habaryň ýerine gowşuryşy ýerine ýetirýär. Akylly şertnama möhleti hem öz içine alýar. Şeýlelik bilen, alyjy kanaly ýapmakdan ýüz öwürse-de, Elisiň serişdelerini yzyna almagy kepillendirilýär. Töleg kanalyna gatnaşyjylaryň kanaly näçe wagt açyk saklamalydygyny kesgitlemeli. Islendik möhletde, minutda töleýän internet kafesi ýaly gysga möhletli amallardan başlap, işgäriň aýlyk hakyny töleýän uzak möhletli amallara çenli kanal döredip bileris.
+
+### Töleg kanalyny açmak
+
+Töleg kanalyny açmak üçin, Alisa iberiljek Ether, alyjy we kanalyň bolmagy üçin iň köp wagt görkezmek bilen akylly şertnama döredýär. Bu amal, bölümiň soňundaky şertnamadan tapylan `SimplePaymentChannel` funksiýasynda görkezilýär.
+
+### Tölemek
+Alisa gol çekilen habarlary ibermek bilen Bob-a töleýär. Bu ädim tutuşlygyna Ethereum torunyň daşynda ýerine ýetirilýär. Habarlar iberiji tarapyndan şifrlenen we soňra göni alyja iberilýär.
+
+Her habarda aşakdaky maglumatlar bar:
+
+- Akylly şertnamanyň salgysy şertnamalaýyn gaýtalanýan hüjümleriň öňüni almak üçin ulanylýar.
+- Ethereumyň alyja bergisi.
+
+Töleg kanaly birnäçe geçirimleriň ahyrynda diňe bir gezek ýapylýar. Şonuň üçin iberilen habarlaryň diňe biri tölenýär. Şonuň üçin her bir habarda aýratyn töleg mukdary däl-de, eýsem umumy Ether bergisi bar. Satyn alyjy, soňky habaryň iň ýokary bahasy bolany üçin, soňky habar üçin tölemegi saýlar. Bu ýerde hile gerek däl, sebäbi akylly şertnama esasan diňe habar bilen işleýär. Munuň ýerine, akylly şertnamanyň salgysy, bir töleg kanaly üçin niýetlenen habaryň başga bir kanal tarapyndan ulanylmagynyň öňüni alýar.
+
+Öňki bölümden habary kriptografiki taýdan gol çekmek üçin üýtgedilen JavaScript kody:
+
+```
+function constructPaymentMessage(contractAddress, amount) {
+    return abi.soliditySHA3(
+        ["address", "uint256"],
+        [contractAddress, amount]
+    );
+}
+
+function signMessage(message, callback) {
+    web3.eth.personal.sign(
+        "0x" + message.toString("hex"),
+        web3.eth.defaultAccount,
+        callback
+    );
+}
+
+// contractAddress is used to prevent cross-contract replay attacks.
+// amount, in wei, specifies how much Ether should be sent.
+
+function signPayment(contractAddress, amount, callback) {
+    var message = constructPaymentMessage(contractAddress, amount);
+    signMessage(message, callback);
+}
+
+```
+### Töleg kanalyny ýapmak
+
+Bob ähli tölegleri alanda, akylly şertnamadaky ýakyn funksiýany çagyryp, töleg kanalyny ýapmaly. `Close` funksiýasy alyja Ether bergisiniň hemmesini töleýär we şertnamany bozýar; galan Eteri Alisa iberýär. Kanaly ýapmak üçin Bob Alisa tarapyndan gol çekilen habary bermeli.
+
+Akylly şertnama bu habaryň Alisiň dogry golunyň bardygyny barlamaly. Bu tassyklamany ýerine ýetirmek prosesi alyjy bilen deňdir. `ReceiverPays` şertnamasyndan alnan  `Solidity` funksiýalary `ValidSignature` we öňki bölümdäki JavaScript kärdeşleri ýaly dikeltmek.
+
+Diňe töleg kanalyny kabul ediji ýakyn funksiýa jaň edip biler, sebäbi soňky habary tebigy ýagdaýda alýar. Iberijä bu funksiýa jaň etmäge rugsat berilse, az mukdarda pul töläp, alyja bergisiniň doly mukdaryny bermezden kanaly ýapyp, habar iberip biler.
+
+
+`Close` funksiýa gol çekilen habaryň berlen parametrlere gabat gelýändigini tassyklaýar. Hemme zady barlaýar, Ether bölegini alyja iberýär we Eteriň galan mukdaryny iberijä iberýär. Öz-özüňi gurmak funksiýasyny aşakdaky jikme-jik şertnamada görüp bilersiňiz.
