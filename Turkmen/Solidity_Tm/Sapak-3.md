@@ -588,3 +588,43 @@ Alisa geleşige gol çekmek üçin Ethereum ulgamy bilen aragatnaşyk saklamagy�
 /// Hashing first makes things easier var hash = web3.utils.sha3(“message to sign”); web3.eth.personal.sign(hash, web3.eth.defaultAccount, function () { console.log(“Signed”); });
 
 ```
+### Näme gol çekmeli?
+
+Töleg buýruklary bilen şertnama üçin gol çekilen habar şulary öz içine almalydyr:
+
+- Alyjynyň salgysy
+- Geçirilmeli mukdar
+- Gaýtadan hüjümlerden goramak
+
+Gaýtadan gaýtalamak hüjümi, ikinji hereket üçin rugsat soramak üçin gol çekilen habaryň gaýtadan ulanylmagydyr. Gaýtadan hüjümleriň öňüni almak üçin, Ethereum amallary üçin ulanýan zadymyzy ulanýarys, hasap bilen iberilen amallaryň sanyny aňladýan “nonce”. Akylly şertnama, bu nomeriň birnäçe gezek ulanylýandygyny barlamak bilen bu hüjümleriň öňüni alýar.
+
+Gaýtadan hüjümiň bolup biläýjek başga bir usuly, şertnamanyň eýesi `RecieverPays` akylly şertnamany başlasa we şertnamany ýok etmek islese. Soňra, `RecipientPays` şertnamasyny täzeden açmak islänlerinde, öňki belgisini bilmeýän bu täze şertnama, köne habary ulanyp, daşardan hüjümlere sezewar bolar.
+
+Alisa şertnamanyň salgysyny habara goşmak bilen bu hüjümden gorap biler we diňe şertnamanyň salgysyny öz içine alýan habarlar kabul edilen halatynda bu hüjümden goralyp bilner. Muňa mysal edip, bu bölümiň ahyrynda jikme-jik şertnamanyň `talapPaýment ()` funksiýasynyň ilkinji iki setirinde tapyp bilersiňiz.
+
+
+### Paket Argümanları
+
+Gol çekilen habara haýsy maglumatlary goşmalydygyny kesgitlänimizden soň, habary ýygnamaga, ugratmaga we gol çekmäge taýýar. Ityönekeýlik üçin maglumatlary birleşdirýäris. [Ethereumjs-abi kitaphanasy](https://github.com/ethereumjs/ethereumjs-abi), `abi.encodePacked` ulanyp kodlanan argumentlere ulanylýan Solidity-iň `keccak256` funksiýasynyň özüni alyp barşyna meňzeýän `soliditySHA3` atly bir funksiýa hödürleýär. Ine, “JavaScript” funksiýasy, `ReceiverPays` mysaly üçin degişli gol döredýär:
+
+```
+// recipient is the address that should be paid.
+// amount, in wei, specifies how much ether should be sent.
+// nonce can be any unique number to prevent replay attacks
+// contractAddress is used to prevent cross-contract replay attacks
+function signPayment(recipient, amount, nonce, contractAddress, callback) {
+    var hash = "0x" + abi.soliditySHA3(
+        ["address", "uint256", "uint256", "address"],
+        [recipient, amount, nonce, contractAddress]
+    ).toString("hex");
+
+    web3.eth.personal.sign(hash, web3.eth.defaultAccount, callback);
+}
+```
+
+### Solidity'de gollary dikeltmek
+
+Adatça, ECDSA gollary `r` we `s` iki parametrden durýar. Ethereum-daky gollar, habara gol çekmek üçin haýsy hasabyň şahsy açarynyň ulanylandygyny we geleşigi iberijiniň kimdigini barlamak üçin ulanyp boljak `v` atly üçünji parametri öz içine alýar. Solidity, `r`, `s` we `v` parametrleri bilen habary kabul edýän we habara gol çekmek üçin ulanylýan adresi yzyna gaýtarýan içerki funksiýany çykarýar.
+
+
+
