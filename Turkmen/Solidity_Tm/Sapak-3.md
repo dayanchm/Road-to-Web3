@@ -583,3 +583,8 @@ Alisa we Bob öz gollaryny Ethereum bilen akylly şertnamadaky amallary tassykla
 ### Gol döretmek
 
 Alisa geleşige gol çekmek üçin Ethereum ulgamy bilen aragatnaşyk saklamagyň zerurlygy ýok, bu amal bütinleý oflayn bolup geçýär. Bu resminamalarda berjek mysalymyzda, [EIP-762-de](https://github.com/ethereum/EIPs/pull/712) beýan edilen usuly ulanyp, [web3.js](https://github.com/web3/web3.js) we [MetaMask](https://metamask.io/) ulanyp, brauzerde habarlara gol çekeris, sebäbi başga-da birnäçe howpsuzlyk peýdalary bar.
+
+```
+/// Hashing first makes things easier var hash = web3.utils.sha3(“message to sign”); web3.eth.personal.sign(hash, web3.eth.defaultAccount, function () { console.log(“Signed”); });
+
+```
