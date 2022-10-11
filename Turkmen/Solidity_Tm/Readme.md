@@ -41,13 +41,13 @@ Jemgyýetiň käbir meýletinçileri bu resminamany dürli dillere terjime etmek
 
 ## Mazmuny
 
-+ Akylly şertnamalara giriş
++ Akylly Şertnamalara Giriş
   - Smartýönekeý akylly şertnama
   - Blokirlemegiň esaslary
   - Ethereum wirtual maşyn
 + Solidity Compiler gurmak
   - Wersiýa
-  - remiks
+  - Remiks
   - Npm / Node.js
   - Doker
   - Ikilik paketler
@@ -71,7 +71,7 @@ Jemgyýetiň käbir meýletinçileri bu resminamany dürli dillere terjime etmek
   - Dürli
   - Gatylyk v0.5.0 Üýtgeşmeler
 + Howpsuzlyk meselesi
-  - duzaklar
+  - Duzaklar
   - Teklipler
   - Resmi tassyklama
 + Çeşmeler
