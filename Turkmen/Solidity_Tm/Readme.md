@@ -55,7 +55,7 @@ Jemgyýetiň käbir meýletinçileri bu resminamany dürli dillere terjime etmek
   - CMake opsiýalary
   - Jikme-jik wersiýa setiri
   - Wersiýa barada möhüm maglumatlar
-+ Gaty mysallar
++ Solidity Mysallary
   - Ses bermek
   - Hususy auksion
   - Uzakdan satyn almak
