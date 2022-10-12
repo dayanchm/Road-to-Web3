@@ -18,3 +18,20 @@ Pragma version şu şekilde:
 pragma solidity ^0.5.2;
 ```
 
+Yokardaky kody öz içine alýan deslapky faýl 0.5.2-den ozal bir düzüji bilen düzülmez, ýa-da 0.6.0 wersiýasyndan başlap düzüjiniň üstünde işlemez (bu ikinji şert ^ ulanyp goşulýar). Munuň aňyrsyndaky pikir, kodumyzyň isleýşimiz ýaly düzjekdigine elmydama ynamymyz bolup biler, sebäbi 0.6 wersiýa çenli hiç hili üýtgeşiklik bolmaz. Çykan bug düzediş wersiýalary deslapky kodumyzda oňat işlär.
+
+Düzediji wersiýa üçin has çylşyrymly düzgünleri kesgitlemek mümkin. Bu ýagdaýlarda, kodumyz npm tarapyndan ulanylýan jümleler bilen yzarlanýar.
+
+#### Maslahat
+
+```
+“Pragma” wersiýasyny ulanmak düzüjiniň wersiýasyny üýtgetmez. Şeýle hem düzüjiniň aýratynlyklaryny işletmeýär ýa-da öçürmeýär. Diňe düzüjä, wersiýasynyň pragmanyň talaplaryna laýyk gelýändigini ýa-da ýokdugyny barlamagy tabşyrar. Gabat gelmese, düzüji ýalňyşlyk goýberer.
+```
+
+### Synag pragmalary
+
+Pragmanyň başga bir görnüşi eksperimental pragma diýilýär. Düzüjiniň ýa-da diliň entek işlemedik diliniň aýratynlyklaryny barlamak üçin ulanylyp bilner. Aşakdaky synag synag pragmalary häzirki wagtda goldanýar:
+
+#### ABIEncoderV2
+
+Täze ABI kodlaýjy, özbaşdak ýerleşdirilen yzygiderliligi we gurluşlary kodlamak we kodlamak ukybyny öz içine alýar. Az optimal kod öndürýär (koduň bu bölegi üçin optimizator henizem işlenip düzülýär) we köne kodlaýjy ýaly synagdan geçirilmeýär. Bu synag synag görnüşi
