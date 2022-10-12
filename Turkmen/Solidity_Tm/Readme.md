@@ -60,7 +60,7 @@ Jemgyýetiň käbir meýletinçileri bu resminamany dürli dillere terjime etmek
   - Hususy auksion
   - Uzakdan satyn almak
   - Mikro töleg kanaly
-+ Çuňlugyň berkligi
++ Solidity in Depth 
   - Çydamly çeşme faýlynyň gurluşy
   - Şertnamanyň gurluşy
   - Şertnamanyň görnüşleri
