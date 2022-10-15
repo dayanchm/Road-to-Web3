@@ -84,3 +84,6 @@ Bellik
 ```
 
 ### Faýlyň ýerleşýän ýeri
+
+Fayylyn yerleşyan yeri aslynda
+
