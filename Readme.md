@@ -58,4 +58,14 @@ The applications built on top of Blockchain are called Decentralized application
 Solidity is an object-oriented, high-level language for implementing smart contracts. Smart contracts are programs which govern the behaviour of accounts within the Ethereum state.
 
  Solidity is statically typed, supports inheritance, libraries and complex user-defined types among other features.
+
+ With Solidity you can create contracts for uses such as voting, crowdfunding, blind auctions, and multi-signature wallets.
  </a>
+
+# <h5>Getting Started</h5>
+
+<p>
+1. Understand the Smart Contract Basics
+What is Smart Contracts ?
+- A smart contract is a computer program or a transaction protocol that is intended to automatically execute, control or document events and actions according to the terms of a contract or an agreement.
+ </p>
